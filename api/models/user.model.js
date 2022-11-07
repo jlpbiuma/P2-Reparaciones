@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     rol: {
         type: String,
-        enum: ["client","tecnical"],
+        enum: ["client","technical"],
+        default: "client", // Para asignar automáticamente rol a cliente
         required: [true, "You have to introduce the role"]
     },
     name: {
@@ -36,11 +37,21 @@ const userSchema = new Schema({
             type: String
         } 
     },
-    historyrepair: [
-        mongoose.Types.ObjectId
+    historyrepairs: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "repair" // Hace referencia a la colección de "repair"
+    }
     ],
-    donerepairs: [
-        mongoose.Types.ObjectId
+    donerepairs: 
+    [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "repair"
+    }
     ]
 })
 
+const userModel = mongoose.model('User', userSchema )
+
+module.exports = userModel

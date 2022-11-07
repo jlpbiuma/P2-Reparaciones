@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
-const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+require("dotenv").config();
+const express = require("express");
 const api = express();
+
+
+
+
 const routes = require("./api/routes/routes.js")
 console.log("Hello world!")
 
@@ -12,8 +17,6 @@ api.use(cors());
 api.use("/api",routes);
 
 api.listen("3000");
-/*
-mongoose.connect("mongodb://admin:123@192.168.0.18:27017/?authMechanism=DEFAULT", () => {
-    console.log("Conectado correctamente!");
-})
-*/
+
+mongoose.connect(process.env.MONGO_URL,{ dbName: process.env.MONGO_DB})
+

@@ -25,5 +25,9 @@ const repairSchema = new Schema({
     pickupDate:  {
         type: Date,
         required: true,
-    },
+    }
 })
+
+const repairModel = mongoose.model('Repair', repairSchema )
+
+module.exports = repairModel
