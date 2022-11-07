@@ -14,6 +14,7 @@ console.log("Hello world!")
 // http://localhost:3000/api
 api.use(morgan("dev"));
 api.use(cors());
+api.use(express.json());
 api.use("/api",routes);
 
 api.listen("3000");

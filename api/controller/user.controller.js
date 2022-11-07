@@ -24,20 +24,91 @@ function getInfoFromAdminID(req, res)
     .catch((err) => {res.json(err)})
 }
 
-function addNewUser(req, res)
+function filterObject(newUser, filteredKey)
 {
-    console.log(req)
-    //userModel.create(req.body)
+    let object = {};
+    let keys = Object.keys(newUser._doc);
+    let values = Object.values(newUser._doc);
+    keys.forEach((key,index) => {
+        if (key != filteredKey)
+        {
+            object[key] = values[index];
+        }
+    });
+    return object;
 }
 
-function updateUserInfo(req, res)
+function addNewClient(req, res)
 {
-
+    userModel.create(req.body)
+    .then((newClient) => {
+        const object = filterObject(newClient,"donerepairs");
+        res.json(object);
+    })
+    .catch((err) => {res.json(err)})
 }
 
-function deleteUser (req, res)
+function addNewAdmin(req, res)
 {
-
+    userModel.create(req.body)
+    .then((newAdmin) => {
+        const object = filterObject(newAdmin, "historyrepairs")
+        res.json(object);
+    })
+    .catch((err) => {res.json(err)})
 }
 
-module.exports = {getAllUsers, getInfoFromClientID, getInfoFromAdminID, addNewUser, updateUserInfo, deleteUser}
+function updateClientInfo(req, res)
+{
+    userModel.findOneAndUpdate({_id:req.params.id},req.body,{
+        new: true,
+        projection: {donerepairs:0} // En findOneAndUpdate hay que añadir explícitamente mediante projection en las opciones: https://stackoverflow.com/questions/43920243/projection-in-mongodb-findoneandupdate
+    })
+    .then((updatedUser) => {
+        res.json(updatedUser);
+    })
+    .catch((err) => res.json(err));
+}
+
+function updateAdminInfo(req, res)
+{
+    userModel.findOneAndUpdate({_id:req.params.id},req.body,{
+        new: true,
+        projection: {historyrepairs: 0}
+    })
+    .then((updateAdmin) => {
+        res.json(updateAdmin);
+    })
+    .catch((err) => res.json(err))
+}
+
+function deleteClient(req, res)
+{
+    userModel.findOneAndRemove({_id:req.params.id})
+    .then((removeClient) => {
+        console.log("Client has been deleted");
+        res.json(removeClient);
+    })
+    .catch((err) => res.json(err));
+}
+
+function deleteAdmin(req, res)
+{
+    userModel.findByIdAndRemove({_id:req.params.id})
+    .then((removeAdmin) => {
+        console.log("Admin has been removed")
+        res.json(removeAdmin)
+    })
+    .catch((err) => res.json(err));
+}
+
+module.exports = {
+    getAllUsers,
+    getInfoFromClientID, 
+    getInfoFromAdminID,
+    addNewClient, 
+    addNewAdmin, 
+    updateClientInfo, 
+    updateAdminInfo, 
+    deleteClient, 
+    deleteAdmin}
