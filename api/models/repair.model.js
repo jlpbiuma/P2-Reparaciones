@@ -22,12 +22,17 @@ const repairSchema = new mongoose.Schema({
         required: true,
     },
     technician: {
+        required: [true, "Is necessary to introduce a technician"],
         type: mongoose.Schema.Types.ObjectId,
-        ref: "technical"
+        ref: "users"
+    },
+    client: {
+        required: [true, "Is necessary to introduce a client"],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
     },
     pickupDate:  {
-        type: Date,
-        required: true,
+        type: Date
     }
 })
 

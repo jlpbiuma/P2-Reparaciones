@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const userModel = require("../models/user.model");
-
+const repairModel = require("../models/repair.model");
 
 function getAllUsers(req, res)
 {
@@ -23,6 +23,13 @@ function getInfoFromAdminID(req, res)
     userModel.findOne({_id:req.params.id, rol:"technical"},{historyrepairs:0})
     .then((user) => {res.send(user)})
     .catch((err) => {res.json(err)})
+}
+
+function getHistoryRepair(req, res)
+{
+    repairModel.find({client: req.params.id})
+    .then( (historyRepair) => res.json(historyRepair))
+    .catch((err) => res.json(err))
 }
 
 function filterObject(newUser, filteredKey)
@@ -107,6 +114,7 @@ module.exports = {
     getAllUsers,
     getInfoFromClientID, 
     getInfoFromAdminID,
+    getHistoryRepair,
     addNewClient, 
     addNewAdmin, 
     updateClientInfo, 

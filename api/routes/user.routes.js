@@ -4,7 +4,8 @@ const { checkAuth, checkRol, checkRolFirstAndIdBefore} = require("../utils/utils
 const {
     getAllUsers,
     getInfoFromClientID,
-    getInfoFromAdminID, 
+    getInfoFromAdminID,
+    getHistoryRepair,
     addNewClient,
     addNewAdmin,
     updateClientInfo, 
@@ -18,6 +19,7 @@ api.get("/", checkAuth, checkRol, getAllUsers); // AQUI VA UN MIDDLEWARE Y SOLO 
 api.get("/client/:id", checkAuth, checkRolFirstAndIdBefore, getInfoFromClientID) // AQUI VA MIDDLEWARE Y SOLO ENTRAN ADMINS O DICHO USER CON EL ID
 //GET: http://localhost:3000/api/users/admin/73485735
 api.get("/admin/:id", checkAuth, checkRol, getInfoFromAdminID) // AQUÍ VA MIDDLEWARE Y SOLO PASAN LOS ADMIN
+api.get("/:id/historyrepair", checkAuth, checkRolFirstAndIdBefore, getHistoryRepair)
 //POST: http://localhost:3000/api/users/
 api.post("/client/",addNewClient) // AQUI NO VA MIDDLEWARE
 api.post("/admin/",addNewAdmin) // AQUI NO VA MIDDLEWARE
