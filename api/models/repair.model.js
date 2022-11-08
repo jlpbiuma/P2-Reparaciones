@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const repairSchema = new Schema({
+const repairSchema = new mongoose.Schema({
     device : {
         type: String,
         required: true,
@@ -21,7 +21,10 @@ const repairSchema = new Schema({
         type: String,
         required: true,
     },
-    technician: Object._id,
+    technician: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "technical"
+    },
     pickupDate:  {
         type: Date,
         required: true,

@@ -7,7 +7,7 @@ const userRoutes = require('./user.routes.js')
 // http://localhost:3000/api/users
 api.use('/users', userRoutes)
 
-// const {repairRoutes} = require('./user.routes.js')
-// api.use('/re', repairRoutes)
+const repairRoutes = require('./repair.routes.js')
+api.use('/repairs', repairRoutes)
 
 module.exports = api;
