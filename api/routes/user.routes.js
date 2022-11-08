@@ -1,6 +1,6 @@
 const express = require('express');
 const api = express();
-const { checkAuth, checkRol } = require("../utils/utils.js")
+const { checkAuth, checkRol, checkRolFirstAndIdBefore} = require("../utils/utils.js")
 const {
     getAllUsers,
     getInfoFromClientID,

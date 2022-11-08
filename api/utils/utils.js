@@ -44,7 +44,7 @@ function checkRolFirstAndIdBefore (req, res, next)
     }
     else
     {
-        if (actualUser._id === req.params.id)
+        if (actualUser.id === req.params.id)
         {
             next();
         }
