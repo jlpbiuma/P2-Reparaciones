@@ -11,6 +11,7 @@ function getAllUsers(req, res)
 
 function getInfoFromClientID(req, res)
 {
+    console.log(req.params.id);
     userModel.findOne({_id:req.params.id, rol:"client"},{donerepairs:0})
     .then((user) => {res.send(user)})
     .catch((err) => {res.json(err)})
@@ -86,7 +87,7 @@ function deleteClient(req, res)
 {
     userModel.findOneAndRemove({_id:req.params.id})
     .then((removeClient) => {
-        console.log("Client has been deleted");
+        console.log(removeClient);
         res.json(removeClient);
     })
     .catch((err) => res.json(err));
