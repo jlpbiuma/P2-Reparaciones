@@ -8,5 +8,9 @@ const repairRoutes = require('./repair.routes.js')
 api.use('/repairs', repairRoutes)
 const authRoutes = require('./auth.routes.js');
 api.use('/auth', authRoutes);
+const registerRoutes = require('./register.routes.js');
+api.use('/register', registerRoutes);
+const cardRoute = require('./card.routes');
+api.use('/card', cardRoute);
 
 module.exports = api;

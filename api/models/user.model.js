@@ -37,19 +37,10 @@ const userSchema = new mongoose.Schema({
             type: String
         } 
     },
-    historyrepairs: [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "repair" // Hace referencia a la colección de "repair"
+    accesCode: {
+        type: String,
+        required: [true, "You have to introduce the acces code"]
     }
-    ],
-    donerepairs: 
-    [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "repair"
-    }
-    ]
 })
 
 const userModel = mongoose.model('User', userSchema )

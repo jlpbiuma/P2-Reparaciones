@@ -12,7 +12,7 @@ function getAllUsers(req, res)
 function getInfoFromClientID(req, res)
 {
     console.log(req.params.id);
-    userModel.findOne({_id:req.params.id, rol:"client"},{donerepairs:0})
+    userModel.findOne({_id:req.params.id, rol:"client"},{accesCode:0, working: 0})
     .then((user) => {res.send(user)})
     .catch((err) => {res.json(err)})
 }
@@ -20,7 +20,7 @@ function getInfoFromClientID(req, res)
 // Nueva ruta: rol = admin
 function getInfoFromAdminID(req, res)
 {
-    userModel.findOne({_id:req.params.id, rol:"technical"},{historyrepairs:0})
+    userModel.findOne({_id:req.params.id, rol:"technical"},{accesCode:0, working: 0})
     .then((user) => {res.send(user)})
     .catch((err) => {res.json(err)})
 }
@@ -70,7 +70,7 @@ function updateClientInfo(req, res)
 {
     userModel.findOneAndUpdate({_id:req.params.id},req.body,{
         new: true,
-        projection: {donerepairs:0} // En findOneAndUpdate hay que añadir explícitamente mediante projection en las opciones: https://stackoverflow.com/questions/43920243/projection-in-mongodb-findoneandupdate
+        projection: {accesCode:0, working: 0} // En findOneAndUpdate hay que añadir explícitamente mediante projection en las opciones: https://stackoverflow.com/questions/43920243/projection-in-mongodb-findoneandupdate
     })
     .then((updatedUser) => {
         res.json(updatedUser);
@@ -82,7 +82,7 @@ function updateAdminInfo(req, res)
 {
     userModel.findOneAndUpdate({_id:req.params.id},req.body,{
         new: true,
-        projection: {historyrepairs: 0}
+        projection: {accesCode: 0, working: 0}
     })
     .then((updateAdmin) => {
         res.json(updateAdmin);
