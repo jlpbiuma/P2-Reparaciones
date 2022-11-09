@@ -19,6 +19,7 @@ async function checkAuth (req, res, next)
         {
             return res.status(401).send("Token not valid");
         }
+        res.locals.user = user;
         actualUser = user;
         next();
     })
@@ -26,7 +27,19 @@ async function checkAuth (req, res, next)
 
 function checkRol (req, res, next)
 {
-    if (actualUser.rol === "technical")
+    if (res.locals.user.rol === "technical" || res.locals.user.rol === "admin")
+    {
+        next();
+    }
+    else
+    {
+        res.json({message: "User not authorized"})
+    }
+}
+
+function checkRolAdmin (req, res, next)
+{
+    if (res.locals.user.rol === "admin")
     {
         next();
     }
@@ -38,13 +51,13 @@ function checkRol (req, res, next)
 
 function checkRolFirstAndIdBefore (req, res, next)
 {
-    if (actualUser.rol === "technical")
+    if (res.locals.user.rol === "technical" || res.locals.user.rol === "admin")
     {
         next();
     }
     else
     {
-        if (actualUser.id === req.params.id)
+        if (res.locals.user.id === req.params.id)
         {
             next();
         }
@@ -55,4 +68,27 @@ function checkRolFirstAndIdBefore (req, res, next)
     }
 }
 
-module.exports = {checkAuth, checkRol, checkRolFirstAndIdBefore}
+function checkRolAdminFirstAndIdBefore (req, res, next)
+{
+    if (res.locals.user.rol === "admin")
+    {
+        next();
+    }
+    else if(actualUser.rol === "technical")
+    {
+        if (actualUser.id === req.params.id)
+        {
+            next();
+        }
+        else
+        {
+            res.json({message: "User not authorized"})
+        }
+    }
+    else
+    {
+        res.json({message: "User not authorized"})
+    }
+}
+
+module.exports = {checkAuth, checkRol, checkRolAdmin, checkRolFirstAndIdBefore, checkRolAdminFirstAndIdBefore}
