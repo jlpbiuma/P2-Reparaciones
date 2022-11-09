@@ -1,4 +1,5 @@
 const User = require("../models/user.model.js");
+const Repair = require("../models/repair.model.js");
 const jwt = require("jsonwebtoken");
 
 let actualUser = {} 
@@ -20,7 +21,6 @@ async function checkAuth (req, res, next)
             return res.status(401).send("Token not valid");
         }
         res.locals.user = user;
-        actualUser = user;
         next();
     })
 }
@@ -57,6 +57,7 @@ function checkRolFirstAndIdBefore (req, res, next)
     }
     else
     {
+        console.log(res.locals.user.id, req.params.id)
         if (res.locals.user.id === req.params.id)
         {
             next();
@@ -70,13 +71,13 @@ function checkRolFirstAndIdBefore (req, res, next)
 
 function checkRolAdminFirstAndIdBefore (req, res, next)
 {
-    if (res.locals.user.rol === "admin")
+    if (res.locals.user.rol == "admin")
     {
         next();
     }
-    else if(actualUser.rol === "technical")
+    else if(res.locals.user.rol === "technical")
     {
-        if (actualUser.id === req.params.id)
+        if (res.locals.user.id === req.params.id)
         {
             next();
         }

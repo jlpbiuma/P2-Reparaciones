@@ -17,7 +17,7 @@ function getInfoByID(req, res)
 
 function getHistoryRepair(req, res)
 {
-    repairModel.find({client: req.params.id})
+    repairModel.find({ $or:[ {'client': req.params.id}, {'technician':req.params.id}]})
     .then( (historyRepair) => res.json(historyRepair))
     .catch((err) => res.json(err))
 }
