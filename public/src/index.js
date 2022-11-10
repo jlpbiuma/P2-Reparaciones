@@ -1,7 +1,6 @@
 const api = axios.create({
     baseURL: "https://p2-reparaciones-production.up.railway.app/",
     timeout: 2000
-
 });
 
 const login = async () => {
