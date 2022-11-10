@@ -2,8 +2,6 @@ const User = require("../models/user.model.js");
 const Repair = require("../models/repair.model.js");
 const jwt = require("jsonwebtoken");
 
-let actualUser = {} 
-
 async function checkAuth (req, res, next)
 {
     if (!req.query.token)

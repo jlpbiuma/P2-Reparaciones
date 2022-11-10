@@ -1,6 +1,4 @@
-const mongoose = require("mongoose")
 const repairModel = require("../models/repair.model.js");
-const userModel = require("../models/user.model.js");
 
 
 function getAllRepairs(req, res) {
@@ -35,6 +33,12 @@ function getPickUpDate(req, res) {
         .catch((err) => res.json(err))
 }
 
+function getPrice(req, res) {
+    repairModel.findOne({_id: req.params.id})
+        .then((repair) => res.json(repair.price))
+        .catch((err) => res.json(err))
+}
+
 function addNewRepair(req, res) {
     repairModel.create(req.body)
         .then((newRepair) => { res.json(newRepair) })
@@ -59,10 +63,15 @@ function putPickUpDate(req, res) {
         .catch((err) => { res.json(err) })
 }
 
+function putPrice(req, res) {
+    repairModel.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
+        .then((repair) => { res.json(repair.price) })
+        .catch((err) => { res.json(err) })
+}
+
 function deleteRepair(req, res) {
     repairModel.findOne({ _id: req.params.id })
         .then(repair => {
-            console.log(repair.client, repair.technician,res.locals.user.id)
             if (repair == null)
             {
                 res.json({ message: "This repair does not exist!"});
@@ -83,9 +92,11 @@ module.exports = {
     getRepairById,
     getEnterDate,
     getPickUpDate,
+    getPrice,
     addNewRepair,
     updateNewRepair,
     putEnterDate,
     putPickUpDate,
+    putPrice,
     deleteRepair
 }
