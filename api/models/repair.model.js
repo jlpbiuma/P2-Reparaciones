@@ -25,6 +25,9 @@ const repairSchema = new Schema({
     pickupDate:  {
         type: Date,
         required: true,
+    },
+    price:{
+        type: Number
     }
 })
 
