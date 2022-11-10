@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
     rol: {
         type: String,
-        enum: ["client","technical"],
+        enum: ["client","technical","admin"],
         default: "client", // Para asignar automáticamente rol a cliente
         required: [true, "You have to introduce the role"]
     },
@@ -36,20 +36,7 @@ const userSchema = new mongoose.Schema({
         cp: {
             type: String
         } 
-    },
-    historyrepairs: [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "repair" // Hace referencia a la colección de "repair"
     }
-    ],
-    donerepairs: 
-    [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "repair"
-    }
-    ]
 })
 
 const userModel = mongoose.model('User', userSchema )

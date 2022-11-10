@@ -1,13 +1,14 @@
 // 1) Importar express para poder utilizarlo
+const userRoutes = require('./user.routes.js');
+const repairRoutes = require('./repair.routes.js')
+const authRoutes = require('./auth.routes.js');
 const express = require('express')
 const api = express()
+
 // 2) Importar las rutas/funciones que se vayan a querer utilizar (mediante destructuring)
 
-const userRoutes = require('./user.routes.js')
-// http://localhost:3000/api/users
-api.use('/users', userRoutes)
-
-// const {repairRoutes} = require('./user.routes.js')
-// api.use('/re', repairRoutes)
+api.use('/users', userRoutes);
+api.use('/repairs', repairRoutes)
+api.use('/auth', authRoutes);
 
 module.exports = api;
