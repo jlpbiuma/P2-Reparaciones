@@ -30,6 +30,8 @@ Para lograr el funcionamiento de esta API hemos tenido que desarrollar los model
 así como los controladores para ambas. Además, hemos implantado autentificaciones para filtrar el acceso
 de los usuarios a los datos.
 
+![](img/updatedCollections.png)
+
 ## TABLA DE REQUEST
 
 | P2 - REPARACIONES     |                |                  |                  | Comprobaciones de rol:               |                                        |
