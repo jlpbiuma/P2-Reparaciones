@@ -32,6 +32,9 @@ const repairSchema = new mongoose.Schema({
     },
     pickupDate:  {
         type: Date
+    },
+    price: {
+        type: Number
     }
 })
 
