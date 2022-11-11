@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 const registerModel = require("../models/register.model");
 
 function getAllRegisters (req, res)
-=======
-const registerModel = require("../models/register.controller");
-
-function getAllRegister (req, res)
->>>>>>> rpi
 {
     registerModel.find()
         .then((registers)=> {res.json(registers)})
@@ -42,11 +36,7 @@ function deleteRegister(req, res)
 }
 
 module.exports = {
-<<<<<<< HEAD
     getAllRegisters,
-=======
-    getAllRegister,
->>>>>>> rpi
     getRegisterById,
     addNewRegister,
     updateRegister,
