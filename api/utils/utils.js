@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 
 async function checkAuth (req, res, next)
 {
-    if (!req.query.token)
+    if (!req.headers.token)
     {
         return res.status(401).send("Token not introduced");
     }
-    jwt.verify(req.query.token, process.env.SECRET, async (err, decoded) => {
+    jwt.verify(req.headers.token, process.env.SECRET, async (err, decoded) => {
         if (err)
         {
             return res.status(500).send("Token not valid")
