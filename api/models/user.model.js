@@ -38,8 +38,7 @@ const userSchema = new mongoose.Schema({
         } 
     },
     accesCode: {
-        type: String,
-        required: [true, "You have to introduce the acces code"]
+        type: String
     }
 })
 
