@@ -8,8 +8,7 @@ const registerSchema = new mongoose.Schema({
         type: Date
     },
     employee: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Is necesary the accesCode during incoming and outcoming Time"]
+        type: mongoose.Schema.Types.ObjectId    
     }
 })
 
