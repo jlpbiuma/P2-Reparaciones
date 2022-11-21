@@ -15,7 +15,7 @@ function signup(req, res)
                         .then (user => {
                             const payload = {email: req.body.email, password: req.body.password};
                             const token = jwt.sign(payload, process.env.SECRET, {expiresIn: "1h"});
-                            res.status(200).json({message: "User Created", token: token, email: req.body.email});
+                            res.status(200).json({message: "User Created", token: token, email: req.body.email, id: user._id});
                         })
                         .catch(err => {res.status(500).json(err)})
                 }
@@ -51,7 +51,7 @@ async function login (req, res)
             }
             const payload = {email: req.body.email, password: req.body.password};
             const token = jwt.sign(payload, process.env.SECRET, {expiresIn: "1h"});
-            return res.status(200).json({message: "Successfully logged in", token: token, email: req.body.email})
+            return res.status(200).json({message: "Successfully logged in", token: token, email: req.body.email, id: user._id})
         })
         
     }
