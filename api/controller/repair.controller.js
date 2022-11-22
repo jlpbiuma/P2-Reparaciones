@@ -45,7 +45,7 @@ function getAllUnasignedRepairs(req, res) {
         .catch((err) => res.json(err))
 }
 
-function getAllUnasignedRepairsByUserId(req, res) {
+function getAllUnasignedRepairsByClientId(req, res) {
     repairModel.find({ $or: [{client: req.params.id}, {technician: req.params.id}]})
         .then((repairs) => res.json(filterRepairs(repairs,"unasigned")))
         .catch((err) => res.json(err))
@@ -148,7 +148,7 @@ module.exports = {
     getPickUpDate,
     getPrice,
     getAllUnasignedRepairs,
-    getAllUnasignedRepairsByUserId,
+    getAllUnasignedRepairsByUserId: getAllUnasignedRepairsByClientId,
     getAllAsignedRepairs,
     getAllAsignedRepairsByUserId,
     getAllDoneRepairs,
