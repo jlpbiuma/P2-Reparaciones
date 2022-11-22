@@ -8,7 +8,7 @@ const {
     getPickUpDate,
     getPrice,
     getAllUnasignedRepairs,
-    getAllUnasignedRepairsByUserId,
+    getAllUnasignedRepairsByClientId,
     getAllAsignedRepairs,
     getAllAsignedRepairsByUserId,
     getAllDoneRepairs,
@@ -35,7 +35,7 @@ api.get("/:id/price", checkAuth, checkRolFirstAndIdBefore, getPrice);
 //GET: http://localhost:3000/api/repairs/unasigned
 api.get("/unasigned", checkAuth, checkRol, getAllUnasignedRepairs)
 //GET: http://localhost:3000/api/repairs/unasigned
-api.get("/unasigned/:userId", checkAuth, getAllUnasignedRepairsByUserId)
+api.get("/unasigned/:userId", checkAuth, getAllUnasignedRepairsByClientId)
 //GET: http://localhost:3000/api/repairs/unasigned/72634762374523
 api.get("/asigned", checkAuth, checkRolAdmin, getAllAsignedRepairs)
 //GET: http://localhost:3000/api/repairs/asigned
