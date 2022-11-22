@@ -15,11 +15,10 @@ const repairSchema = new mongoose.Schema({
     },
     enterDate:  {
         type: Date,
-        required: true,
+        required: true
     },
     techDiagnosis: {
-        type: String,
-        required: true,
+        type: String
     },
     technician: {
         type: mongoose.Schema.Types.ObjectId,
