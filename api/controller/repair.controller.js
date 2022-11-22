@@ -71,7 +71,7 @@ function getAllDoneRepairs(req, res) {
 
 function getAllDoneRepairsByUserId(req, res) {
     repairModel.find({ $or: [{client: req.params.userId}, {technician: req.params.userId}]})
-        .then((repairs) => res.json(filterRepairs(repairs,"asigned")))
+        .then((repairs) => res.json(filterRepairs(repairs,"done")))
         .catch((err) => res.json(err))
 }
 
