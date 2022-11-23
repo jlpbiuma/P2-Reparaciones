@@ -1,5 +1,5 @@
 const repairModel = require("../models/repair.model.js");
-
+var ObjectId = require('mongoose').Types.ObjectId;
 
 function getAllRepairs(req, res) {
     repairModel.find()
@@ -46,7 +46,7 @@ function getAllUnasignedRepairs(req, res) {
 }
 
 function getAllUnasignedRepairsByClientId(req, res) {
-    repairModel.find({ $or: [{client: req.params.userId}, {technician: req.params.userId}]})
+    repairModel.find({client: req.params.userId})
         .then((repairs) => res.json(filterRepairs(repairs,"unasigned")))
         .catch((err) => res.json(err))
 }
@@ -58,7 +58,7 @@ function getAllAsignedRepairs(req, res) {
 }
 
 function getAllAsignedRepairsByUserId(req, res) {
-    repairModel.find({ $or: [{client: req.params.userId}, {technician: req.params.userId}]})
+    repairModel.find({ $or: [{client: new ObjectId(req.params.id)}, {technician: new ObjectId(req.params.id)}]})
         .then((repairs) => res.json(filterRepairs(repairs,"asigned")))
         .catch((err) => res.json(err))
 }
@@ -70,20 +70,20 @@ function getAllDoneRepairs(req, res) {
 }
 
 function getAllDoneRepairsByUserId(req, res) {
-    repairModel.find({ $or: [{client: req.params.userId}, {technician: req.params.userId}]})
+    repairModel.find({ $or: [{client: new ObjectId(req.params.id)}, {technician: new ObjectId(req.params.id)}]})
         .then((repairs) => res.json(filterRepairs(repairs,"done")))
         .catch((err) => res.json(err))
 }
 
 function filterRepairs(repairs, state) {
     if( state == "unasigned"){
-        return repairs.filter(element => Object.keys(element._doc).length <= 7)
+        return repairs.filter(element => element._doc.technician == undefined )
     }
     else if ( state == "asigned"){
-        return repairs.filter(element => Object.keys(element._doc).length == 8)
+        return repairs.filter(element => element._doc.technician != undefined && element._doc.techDiagnosis == undefined && element._doc.pickupDate == undefined && element._doc.price == undefined)
     }
     else if ( state == "done"){
-        return repairs.filter(element => Object.keys(element._doc).length > 8)
+        return repairs.filter(element => element._doc.techDiagnosis != undefined && element._doc.pickupDate != undefined && element._doc.price != undefined)
     }
 }
 
@@ -119,6 +119,12 @@ function putPrice(req, res) {
 
 function putAsignToEmployee(req, res) {
     repairModel.findByIdAndUpdate({ _id: req.params.id }, {technician: req.body.technician}, { new: true })
+        .then((repair) => { res.json(repair) })
+        .catch((err) => { res.json(err) })
+}
+
+function putRepairToDone(req, res) {
+    repairModel.findByIdAndUpdate({ _id: req.params.id },{ techDiagnosis: req.body.techDiagnosis, pickupDate: req.body.pickupDate, price: req.body.price },{ new: true })
         .then((repair) => { res.json(repair) })
         .catch((err) => { res.json(err) })
 }
@@ -159,5 +165,6 @@ module.exports = {
     putPickUpDate,
     putPrice,
     putAsignToEmployee,
+    putRepairToDone,
     deleteRepair
 }

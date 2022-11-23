@@ -19,6 +19,7 @@ const {
     putPickUpDate,
     putPrice,
     putAsignToEmployee,
+    putRepairToDone,
     deleteRepair 
 } = require("../controller/repair.controller")
 
@@ -56,6 +57,8 @@ api.put("/:id/pickupdate", checkAuth, checkRol, putPickUpDate)
 api.put("/:id/price", checkAuth, checkRol, putPrice)
 //PUT: http://localhost:3000/api/repairs//unasigned/734576345634675
 api.put("/unasigned/:id", checkAuth, checkRol, putAsignToEmployee)
+//PUT: http://localhost:3000/api/repairs/asigned/734576345634675
+api.put("/asigned/:id", checkAuth, checkRol, putRepairToDone)
 //POST: http://localhost:3000/api/repairs/:id
 api.delete("/:id", checkAuth, deleteRepair)
 
