@@ -12,9 +12,9 @@ const {
 //GET: http://localhost:3000/api/users/
 api.get("/", checkAuth, checkRol, getAllUsers);
 //GET: http://localhost:3000/api/users/client/73485735
-api.get("/client/:id", checkAuth, checkRolFirstAndIdBefore, getInfoByID)
+api.get("/client/:id", checkAuth, getInfoByID)
 //GET: http://localhost:3000/api/users/employee/2743234
-api.get("/employee/:id", checkAuth, checkRolAdminFirstAndIdBefore, getInfoByID)
+api.get("/employee/:id", checkAuth, getInfoByID)
 //GET: http://localhost:3000/api/users/admin/73485735
 api.get("/admin/:id", checkAuth, checkRolAdmin, getInfoByID)
 //GET: http://localhost:3000/api/users/admin/62347623/historyrepair
