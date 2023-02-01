@@ -39,7 +39,7 @@ de los usuarios a los datos.
 
 ## DIAGRAMA DE COLECCIONES NOSQL
 
-![](img/updatedCollections.png)
+![](img/updatedCollections.PNG)
 
 ## TABLA DE REQUEST
 
